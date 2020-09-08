@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/cAPPe.iml" filepath="$PROJECT_DIR$/.idea/cAPPe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/loopback4-example-access-control-migration.iml" filepath="$PROJECT_DIR$/.idea/loopback4-example-access-control-migration.iml" />
     </modules>
   </component>
 </project>

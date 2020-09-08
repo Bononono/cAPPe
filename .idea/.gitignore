@@ -2,7 +2,7 @@
 /shelf/
 /workspace.xml
 # Datasource local storage ignored files
-/../../../../:\Projects\cAPPe\.idea/dataSources/
+/../../../../:\Projects\loopback4-example-access-control-migration\.idea/dataSources/
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/

@@ -1,0 +1,4 @@
+p, admin, organization*, view-all
+p, admin, organization1, donate
+p, admin, organization2, donate
+g, u3, admin

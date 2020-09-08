@@ -1,58 +1,69 @@
-import {Entity, Model, model, property} from '@loopback/repository';
+import {Entity, hasMany, hasOne, model, property} from '@loopback/repository';
+import {Team} from './team.model';
+import {UserCredentials} from './user-credentials.model';
 
-@model()
+@model({
+    settings: {
+        strict: false,
+    },
+})
 export class User extends Entity {
-  @property({
-    type: 'string',
-    id: true,
-    generated: true,
-  })
-  user_id?: string;
+    // must keep it
+    @property({
+        type: 'number',
+        id: 1,
+        generated: false,
+        updateOnly: true,
+    })
+    id: number;
 
-  @property({
-    type: 'string',
-    required: true,
-  })
-  email: string;
+    @property({
+        type: 'string',
+    })
+    realm?: string;
 
-  @property({
-    type: 'string',
-    required: true,
-  })
-  password: string;
+    // must keep it
+    @property({
+        type: 'string',
+    })
+    username?: string;
 
-  @property({
-    type: 'number',
-    required: true,
-  })
-  user_role: number;
+    // must keep it
+    @property({
+        type: 'string',
+        required: true,
+    })
+    email: string;
 
-  @property({
-    type: 'date',
-    required: true,
-  })
-  last_login: string;
+    @property({
+        type: 'boolean',
+    })
+    emailVerified?: boolean;
 
-  @property({
-    type: 'date',
-    required: true,
-  })
-  last_changed: string;
+    @property({
+        type: 'string',
+    })
+    verificationToken?: string;
 
-  @property({
-    type: 'boolean',
-    required: true,
-  })
-  deleted: boolean;
+    @hasOne(() => UserCredentials)
+    userCredentials: UserCredentials;
 
+    @hasMany(() => Team, {keyTo: 'ownerId'})
+    teams: Team[];
 
-  constructor(data?: Partial<User>) {
-    super(data);
-  }
+    // Define well-known properties here
+
+    // Indexer property to allow additional data
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [prop: string]: any;
+
+    constructor(data?: Partial<User>) {
+        super(data);
+    }
 }
 
 export interface UserRelations {
-  // describe navigational properties here
+    // describe navigational properties here
 }
 
 export type UserWithRelations = User & UserRelations;

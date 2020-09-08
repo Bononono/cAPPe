@@ -1,32 +1,43 @@
-import {CApPe} from '../..';
-import {
-  createRestAppClient,
-  givenHttpServerConfig,
-  Client,
-} from '@loopback/testlab';
+// Copyright IBM Corp. 2020. All Rights Reserved.
+// Node module: @loopback/example-file-transfer
+// This file is licensed under the MIT License.
+// License text available at https://opensource.org/licenses/MIT
 
-export async function setupApplication(): Promise<AppWithClient> {
-  const restConfig = givenHttpServerConfig({
-    // Customize the server configuration here.
-    // Empty values (undefined, '') will be ignored by the helper.
-    //
-    // host: process.env.HOST,
-    // port: +process.env.PORT,
-  });
+import {Client, createRestAppClient, givenHttpServerConfig, TestSandbox,} from '@loopback/testlab';
+import path from 'path';
+import {AccessControlApplication} from '../..';
 
-  const app = new CApPe({
-    rest: restConfig,
-  });
+export async function setupApplication(
+    fileStorageDirectory?: string,
+): Promise<AppWithClient> {
+    const restConfig = givenHttpServerConfig({
+        // Customize the server configuration here.
+        // Empty values (undefined, '') will be ignored by the helper.
+        //
+        // host: process.env.HOST,
+        // port: +process.env.PORT,
+    });
 
-  await app.boot();
-  await app.start();
+    const app = new AccessControlApplication({
+        rest: restConfig,
+        fileStorageDirectory,
+    });
 
-  const client = createRestAppClient(app);
+    await app.boot();
+    await app.start();
 
-  return {app, client};
+    const client = createRestAppClient(app);
+
+    return {app, client};
 }
 
 export interface AppWithClient {
-  app: CApPe;
-  client: Client;
+    app: AccessControlApplication;
+    client: Client;
+}
+
+export function getSandbox() {
+    // dist/.sandbox/<a unique temporary subdir>
+    const sandbox = new TestSandbox(path.resolve(__dirname, '../../.sandbox'));
+    return sandbox;
 }
