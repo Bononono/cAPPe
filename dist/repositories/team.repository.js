@@ -12,8 +12,8 @@ let TeamRepository = class TeamRepository extends repository_1.DefaultCrudReposi
     }
 };
 TeamRepository = tslib_1.__decorate([
-    tslib_1.__param(0, core_1.inject('datasources.db')),
-    tslib_1.__metadata("design:paramtypes", [datasources_1.DbDataSource])
+    tslib_1.__param(0, core_1.inject('datasources.mysql')),
+    tslib_1.__metadata("design:paramtypes", [datasources_1.MysqlDataSource])
 ], TeamRepository);
 exports.TeamRepository = TeamRepository;
 //# sourceMappingURL=team.repository.js.map

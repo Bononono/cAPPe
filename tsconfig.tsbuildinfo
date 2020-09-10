@@ -2056,9 +2056,14 @@
         "signature": "f30de75e39b6e537603a0af155d07adf8c928916589d062321184f383ddbdf0f",
         "affectsGlobalScope": false
       },
+      "./src/datasources/mysql.datasource.ts": {
+        "version": "333bbce93ddcdbeaa4488d9058acef0dd32352d605d6debe256beeb6feba9526",
+        "signature": "c96df88eabe3a30ed15370af7791f9da947cf920f8c1134cc274b9f3eb85712b",
+        "affectsGlobalScope": false
+      },
       "./src/datasources/index.ts": {
-        "version": "834b70c56280af742429c81a7c992c940426144605c9604c22ffd68a9c327619",
-        "signature": "537dd21cdb932491bca04b418b9582009f52a8a6b403a48d224cf3f2d0df545a",
+        "version": "47dd5a52520052127a6374d45813daf743caaf7dd1230661d8d58826a918759a",
+        "signature": "65d5f3c3a0e138bb8ec04ede548527a163d45fe9714395602a320b64d0711269",
         "affectsGlobalScope": false
       },
       "./src/models/organization.model.ts": {
@@ -2072,18 +2077,18 @@
         "affectsGlobalScope": false
       },
       "./src/repositories/team.repository.ts": {
-        "version": "b2b2377c1a1ab3851e7d7fa96507ca4fb9293bb502c038bcff530e683d8d6327",
-        "signature": "4ee70020a7047119ca3db21e8b0a698e4556df15ace20c60f74a5f44e5ffbaf9",
+        "version": "1eda6c233005d0a037452674ba32b7203c804b185d136df6088fd3509316b373",
+        "signature": "88613053ec29f3e4eb8072887d512b6816c4055d97f46186a8edbe79730933db",
         "affectsGlobalScope": false
       },
       "./src/repositories/user-credentials.repository.ts": {
-        "version": "6d4c87f857f9bd7f65bceeb58eb5797bdbd01e31bf1383dd5f7f01aefaa997b1",
-        "signature": "f935f06b9f416639d7c93bce6fd82ad14d894335947949a73029fef27882b7f0",
+        "version": "aa16b4b30a1a0618a897aa3e27d2916a40ac314ed7e0655e977198388392c22d",
+        "signature": "06cd9d2d618e62d6b18cae7c23451b7e43c845747b6b4e25217de8dc96312cad",
         "affectsGlobalScope": false
       },
       "./src/repositories/user.repository.ts": {
-        "version": "d6c6a522ae85b2088e3159420d16538dc776734affb9403796c9bac0605624c5",
-        "signature": "5cc5b45edab4ab120e9346e9325ba3c5defb6e580895be7ad5219d180fc386d0",
+        "version": "00ec1a36d255e95c415a65a312a98a16214c3230d06ceedc81fffb049825da02",
+        "signature": "b62c7e0ac25305c732665b207f48baa325f4b708501641e79e535049559ec2e9",
         "affectsGlobalScope": false
       },
       "./src/components/jwt-authentication/services/user.service.ts": {
@@ -2137,8 +2142,8 @@
         "affectsGlobalScope": false
       },
       "./src/repositories/organization.repository.ts": {
-        "version": "9a9265619eab1a340cb2ce1139d34985628199d9c932d53834fda0d3faf180ca",
-        "signature": "805eb83642a0c634050bf8f42f4b3d6a67f1361234792f1b089441f9553ce6af",
+        "version": "df9f03eaad57bb31dd3e004d7553f475c1401bc8923355f19376a6bb4a65dd06",
+        "signature": "8506e249ba708461be458f54b94cb41129bf4cd4d137216148b7afe163ba3a96",
         "affectsGlobalScope": false
       },
       "./src/repositories/index.ts": {
@@ -2357,8 +2362,8 @@
         "affectsGlobalScope": false
       },
       "./src/controllers/user.controller.ts": {
-        "version": "658edb121ecbeb37c73f19538352c3619300ceaf16cad8c43931cccf2093d443",
-        "signature": "0e8d1e757b3dc5845c3786382f0f9fb56cf5a35ffdd497716b5617bd93d0e0ff",
+        "version": "30eee4c2c940b48979c3fce126067c17aa53d2b832fb6957b19f8aeb778bbdcb",
+        "signature": "58cfd40ecc0cf943edbd16684b10447e8085d950e71f5cc55fc1650767c24313",
         "affectsGlobalScope": false
       },
       "./src/controllers/index.ts": {
@@ -4510,16 +4515,26 @@
       "./src/controllers/user.controller.ts": [
         "./node_modules/@loopback/authentication/dist/index.d.ts",
         "./node_modules/@loopback/core/dist/index.d.ts",
+        "./node_modules/@loopback/repository/dist/index.d.ts",
         "./node_modules/@loopback/rest/dist/index.d.ts",
+        "./node_modules/@loopback/security/dist/index.d.ts",
+        "./node_modules/@types/bcryptjs/index.d.ts",
+        "./node_modules/@types/lodash/index.d.ts",
         "./src/components/jwt-authentication/index.ts",
-        "./src/models/index.ts"
+        "./src/models/index.ts",
+        "./src/repositories/index.ts"
       ],
       "./src/datasources/db.datasource.ts": [
         "./node_modules/@loopback/core/dist/index.d.ts",
         "./node_modules/@loopback/repository/dist/index.d.ts"
       ],
       "./src/datasources/index.ts": [
-        "./src/datasources/db.datasource.ts"
+        "./src/datasources/db.datasource.ts",
+        "./src/datasources/mysql.datasource.ts"
+      ],
+      "./src/datasources/mysql.datasource.ts": [
+        "./node_modules/@loopback/core/dist/index.d.ts",
+        "./node_modules/@loopback/repository/dist/index.d.ts"
       ],
       "./src/index.ts": [
         "./node_modules/@loopback/rest/dist/index.d.ts",
@@ -6617,14 +6632,21 @@
       ],
       "./src/controllers/user.controller.ts": [
         "./node_modules/@loopback/authentication/dist/index.d.ts",
+        "./node_modules/@loopback/security/dist/index.d.ts",
         "./src/components/jwt-authentication/index.ts",
-        "./src/models/index.ts"
+        "./src/models/index.ts",
+        "./src/repositories/index.ts"
       ],
       "./src/datasources/db.datasource.ts": [
         "./node_modules/@loopback/repository/dist/index.d.ts"
       ],
       "./src/datasources/index.ts": [
-        "./src/datasources/db.datasource.ts"
+        "./src/datasources/db.datasource.ts",
+        "./src/datasources/mysql.datasource.ts"
+      ],
+      "./src/datasources/mysql.datasource.ts": [
+        "./node_modules/@loopback/core/dist/index.d.ts",
+        "./node_modules/@loopback/repository/dist/index.d.ts"
       ],
       "./src/index.ts": [
         "./node_modules/@loopback/rest/dist/index.d.ts",
@@ -7177,6 +7199,7 @@
       "./src/controllers/user.controller.ts",
       "./src/datasources/db.datasource.ts",
       "./src/datasources/index.ts",
+      "./src/datasources/mysql.datasource.ts",
       "./src/index.ts",
       "./src/keys.ts",
       "./src/migrate.ts",

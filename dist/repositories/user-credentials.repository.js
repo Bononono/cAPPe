@@ -12,8 +12,8 @@ let UserCredentialsRepository = class UserCredentialsRepository extends reposito
     }
 };
 UserCredentialsRepository = tslib_1.__decorate([
-    tslib_1.__param(0, core_1.inject('datasources.db')),
-    tslib_1.__metadata("design:paramtypes", [datasources_1.DbDataSource])
+    tslib_1.__param(0, core_1.inject('datasources.mysql')),
+    tslib_1.__metadata("design:paramtypes", [datasources_1.MysqlDataSource])
 ], UserCredentialsRepository);
 exports.UserCredentialsRepository = UserCredentialsRepository;
 //# sourceMappingURL=user-credentials.repository.js.map

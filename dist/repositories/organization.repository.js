@@ -15,9 +15,9 @@ let OrganizationRepository = class OrganizationRepository extends repository_1.D
     }
 };
 OrganizationRepository = tslib_1.__decorate([
-    tslib_1.__param(0, core_1.inject('datasources.db')),
+    tslib_1.__param(0, core_1.inject('datasources.mysql')),
     tslib_1.__param(1, repository_1.repository.getter('UserRepository')),
-    tslib_1.__metadata("design:paramtypes", [datasources_1.DbDataSource, Function])
+    tslib_1.__metadata("design:paramtypes", [datasources_1.MysqlDataSource, Function])
 ], OrganizationRepository);
 exports.OrganizationRepository = OrganizationRepository;
 //# sourceMappingURL=organization.repository.js.map

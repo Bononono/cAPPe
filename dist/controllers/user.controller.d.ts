@@ -1,6 +1,14 @@
 import { TokenService, UserService } from '@loopback/authentication';
 import { Credentials } from '../components/jwt-authentication';
 import { User } from '../models';
+import { UserProfile } from '@loopback/security';
+import { UserRepository } from "../repositories";
+export declare class ResetPasswordRequest {
+    email: string;
+}
+export declare class NewUserRequest extends User {
+    password: string;
+}
 export declare const CredentialsRequestBody: {
     description: string;
     required: boolean;
@@ -26,8 +34,12 @@ export declare const CredentialsRequestBody: {
 export declare class UserController {
     jwtService: TokenService;
     userService: UserService<User, Credentials>;
-    constructor(jwtService: TokenService, userService: UserService<User, Credentials>);
+    protected userRepository: UserRepository;
+    constructor(jwtService: TokenService, userService: UserService<User, Credentials>, userRepository: UserRepository);
+    whoAmI(currentUserProfile: UserProfile): Promise<string>;
     login(credentials: Credentials): Promise<{
         token: string;
     }>;
+    signUp(newUserRequest: NewUserRequest): Promise<User>;
+    resetPassword(resetPasswordRequest: ResetPasswordRequest): Promise<string>;
 }

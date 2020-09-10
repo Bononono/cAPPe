@@ -5,7 +5,7 @@ import {
     HasOneRepositoryFactory,
     repository,
 } from '@loopback/repository';
-import {DbDataSource} from '../datasources';
+import {MysqlDataSource} from '../datasources';
 import {Team, User, UserCredentials, UserRelations} from '../models';
 import {TeamRepository} from './team.repository';
 import {UserCredentialsRepository} from './user-credentials.repository';
@@ -20,7 +20,7 @@ export class UserRepository extends DefaultCrudRepository<User,
         typeof User.prototype.id>;
 
     constructor(
-        @inject('datasources.db') dataSource: DbDataSource,
+        @inject('datasources.mysql') dataSource: MysqlDataSource,
         @repository.getter('UserCredentialsRepository')
         protected userCredentialsRepositoryGetter: Getter<UserCredentialsRepository>,
         @repository.getter('TeamRepository')
