@@ -20,8 +20,5 @@ export declare class SampleObserver implements LifeCycleObserver {
      * This method will be invoked when the application stops
      */
     stop(): Promise<void>;
-    createUsers(): Promise<void>;
-    createOrganizations(): Promise<void>;
-    createTeams(): Promise<void>;
     hashPassword(password: string, rounds: number): Promise<string>;
 }

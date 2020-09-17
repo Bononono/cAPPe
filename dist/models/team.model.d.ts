@@ -1,6 +1,6 @@
 import { Entity } from '@loopback/repository';
 export declare class Team extends Entity {
-    id: number;
+    id: string;
     ownerId: number;
     memberIds: number[];
     [prop: string]: any;

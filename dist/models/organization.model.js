@@ -4,6 +4,7 @@ exports.Organization = void 0;
 const tslib_1 = require("tslib");
 const repository_1 = require("@loopback/repository");
 const user_model_1 = require("./user.model");
+const uuid_1 = require("uuid");
 let Organization = class Organization extends repository_1.Entity {
     constructor(data) {
         super(data);
@@ -11,12 +12,12 @@ let Organization = class Organization extends repository_1.Entity {
 };
 tslib_1.__decorate([
     repository_1.property({
-        type: 'number',
-        id: 1,
+        id: true,
+        type: 'string',
         generated: false,
-        updateOnly: true,
+        default: () => uuid_1.v4(),
     }),
-    tslib_1.__metadata("design:type", Number)
+    tslib_1.__metadata("design:type", String)
 ], Organization.prototype, "id", void 0);
 tslib_1.__decorate([
     repository_1.property({
@@ -35,7 +36,7 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:type", Number)
 ], Organization.prototype, "ownerId", void 0);
 Organization = tslib_1.__decorate([
-    repository_1.model({ settings: { strict: false } }),
+    repository_1.model(),
     tslib_1.__metadata("design:paramtypes", [Object])
 ], Organization);
 exports.Organization = Organization;

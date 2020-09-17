@@ -2,14 +2,15 @@
 
 import {authenticate, TokenService, UserService} from '@loopback/authentication';
 import {inject} from '@loopback/core';
-import {get, getModelSchemaRef, post, requestBody} from '@loopback/rest';
+import {get, getModelSchemaRef, param, post, requestBody} from '@loopback/rest';
 import {Credentials, TokenServiceBindings, UserServiceBindings} from '../components/jwt-authentication';
-import {User, UserCredentials} from '../models';
+import {Organization, User, UserRelations} from '../models';
 import {SecurityBindings, securityId, UserProfile} from '@loopback/security';
-import {HasOneRepository, model, property, repository} from "@loopback/repository";
+import {model, property, repository} from "@loopback/repository";
 import {genSalt, hash} from 'bcryptjs';
 import _ from 'lodash';
 import {UserRepository} from "../repositories";
+import {authorize} from "@loopback/authorization";
 
 @model()
 export class ResetPasswordRequest {
@@ -115,7 +116,7 @@ export class UserController {
         return {token};
     }
 
-    @post('/signup', {
+    @post('/createuser', {
         responses: {
             '200': {
                 description: 'User',
@@ -129,7 +130,7 @@ export class UserController {
             },
         },
     })
-    async signUp(
+    async createuser(
         @requestBody({
             content: {
                 'application/json': {
@@ -187,5 +188,44 @@ export class UserController {
         await this.userRepository.userCredentials(user[0].id).create({password});
 
         return string;
+    }
+
+    // VIEW ALL PROJECTS (including balance)
+    @get('/view-all-users', {
+        responses: {
+            '200': {
+                description: 'Array of all user model instances',
+                content: {
+                    'application/json': {
+                        schema: {
+                            type: 'array',
+                            items: getModelSchemaRef(User),
+                        },
+                    },
+                },
+            },
+        },
+    })
+    @authenticate('jwt')
+    async viewAll(): Promise<(User & UserRelations)[]> {
+        return this.userRepository.find();
+    }
+
+    // SHOW BALANCE: get organization by id
+    @get('/users/{id}', {
+        responses: {
+            '200': {
+                description: 'show details of a user',
+                content: {
+                    'application/json': {
+                        schema: getModelSchemaRef(User),
+                    },
+                },
+            },
+        },
+    })
+    @authenticate('jwt')
+    async findById(@param.path.number('id') id: string): Promise<User & UserRelations> {
+        return this.userRepository.findById(id);
     }
 }

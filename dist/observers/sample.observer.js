@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SampleObserver = void 0;
 const tslib_1 = require("tslib");
 const core_1 = require("@loopback/core");
-const _ = tslib_1.__importStar(require("lodash"));
 const organization_repository_1 = require("../repositories/organization.repository");
 const team_repository_1 = require("../repositories/team.repository");
 const user_repository_1 = require("../repositories/user.repository");
@@ -25,9 +24,9 @@ let SampleObserver = class SampleObserver {
     async start() {
         // Add your logic for start
         if (process.env.SEED_DATA) {
-            await this.createUsers();
-            await this.createOrganizations();
-            await this.createTeams();
+            // await this.createUsers();
+            // await this.createOrganizations();
+            // await this.createTeams();
         }
     }
     /**
@@ -36,53 +35,57 @@ let SampleObserver = class SampleObserver {
     async stop() {
         // Add your logic for stop
     }
-    async createUsers() {
-        const hashedPassword = await this.hashPassword('opensesame', 10);
-        const users = [
-            {
-                id: 1,
-                username: 'owner',
-                email: 'owner@tie.com',
-                password: hashedPassword,
-            },
-            {
-                id: 2,
-                username: 'team',
-                email: 'team@tie.com',
-                password: hashedPassword,
-            },
-            {
-                id: 3,
-                username: 'admin',
-                email: 'admin@tie.com',
-                password: hashedPassword,
-            },
-        ];
-        for (const u of users) {
-            await this.userRepo.create(_.pick(u, ['id', 'email', 'username']));
-            await this.userRepo
-                .userCredentials(u.id)
-                .create({ password: u.password, userId: u.id });
-        }
-    }
-    async createOrganizations() {
-        const organizations = [
-            { id: 1, name: 'organization1', balance: 0, ownerId: 1 },
-            { id: 2, name: 'organization2', balance: 0, ownerId: 2 },
-        ];
-        for (const p of organizations) {
-            await this.organizationRepo.create(p);
-        }
-    }
-    async createTeams() {
-        const teams = [
-            { id: 1, ownerId: 1, memberIds: [1, 2] },
-            { id: 2, ownerId: 2, memberIds: [2] },
-        ];
-        for (const t of teams) {
-            await this.teamRepo.create(t);
-        }
-    }
+    // async createUsers(): Promise<void> {
+    //     const hashedPassword = await this.hashPassword('opensesame', 10);
+    //     const users = [
+    //         {
+    //             id: 1,
+    //             username: 'owner',
+    //             email: 'owner@tie.com',
+    //             password: hashedPassword,
+    //         },
+    //         {
+    //             id: 2,
+    //             username: 'team',
+    //             email: 'team@tie.com',
+    //             password: hashedPassword,
+    //         },
+    //         {
+    //             id: 3,
+    //             username: 'admin',
+    //             email: 'admin@tie.com',
+    //             password: hashedPassword,
+    //         },
+    //     ];
+    //
+    //     for (const u of users) {
+    //         await this.userRepo.create(_.pick(u, ['id', 'email', 'username']));
+    //         await this.userRepo
+    //             .userCredentials(u.id)
+    //             .create({password: u.password, userId: u.id});
+    //     }
+    // }
+    // async createOrganizations(): Promise<void> {
+    //     const organizations = [
+    //         {id: 1, name: 'organization1', balance: 0, ownerId: 1},
+    //         {id: 2, name: 'organization2', balance: 0, ownerId: 2},
+    //     ];
+    //
+    //     for (const p of organizations) {
+    //         await this.organizationRepo.create(p);
+    //     }
+    // }
+    //
+    // async createTeams(): Promise<void> {
+    //     const teams = [
+    //         {id: 1, ownerId: 1, memberIds: [1, 2]},
+    //         {id: 2, ownerId: 2, memberIds: [2]},
+    //     ];
+    //
+    //     for (const t of teams) {
+    //         await this.teamRepo.create(t);
+    //     }
+    // }
     async hashPassword(password, rounds) {
         const salt = await bcryptjs_1.genSalt(rounds);
         return bcryptjs_1.hash(password, salt);

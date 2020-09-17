@@ -1,15 +1,16 @@
 import {belongsTo, Entity, model, property} from '@loopback/repository';
 import {User} from './user.model';
+import {v4 as uuid} from 'uuid';
 
-@model({settings: {strict: false}})
+@model()
 export class Organization extends Entity {
     @property({
-        type: 'number',
-        id: 1,
+        id: true,
+        type: 'string',
         generated: false,
-        updateOnly: true,
+        default: () => uuid(),
     })
-    id: number;
+    id: string;
 
     @property({
         type: 'string',

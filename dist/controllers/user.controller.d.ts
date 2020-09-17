@@ -1,6 +1,6 @@
 import { TokenService, UserService } from '@loopback/authentication';
 import { Credentials } from '../components/jwt-authentication';
-import { User } from '../models';
+import { User, UserRelations } from '../models';
 import { UserProfile } from '@loopback/security';
 import { UserRepository } from "../repositories";
 export declare class ResetPasswordRequest {
@@ -40,6 +40,8 @@ export declare class UserController {
     login(credentials: Credentials): Promise<{
         token: string;
     }>;
-    signUp(newUserRequest: NewUserRequest): Promise<User>;
+    createuser(newUserRequest: NewUserRequest): Promise<User>;
     resetPassword(resetPasswordRequest: ResetPasswordRequest): Promise<string>;
+    viewAll(): Promise<(User & UserRelations)[]>;
+    findById(id: string): Promise<User & UserRelations>;
 }

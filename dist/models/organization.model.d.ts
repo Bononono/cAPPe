@@ -1,6 +1,6 @@
 import { Entity } from '@loopback/repository';
 export declare class Organization extends Entity {
-    id: number;
+    id: string;
     name?: string;
     balance: number;
     ownerId: number;

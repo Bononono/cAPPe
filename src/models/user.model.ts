@@ -1,21 +1,18 @@
 import {Entity, hasMany, hasOne, model, property} from '@loopback/repository';
 import {Team} from './team.model';
 import {UserCredentials} from './user-credentials.model';
+import {v4 as uuid} from 'uuid';
 
-@model({
-    settings: {
-        strict: false,
-    },
-})
+@model()
 export class User extends Entity {
     // must keep it
     @property({
-        type: 'number',
-        id: 1,
+        id: true,
+        type: 'string',
         generated: false,
-        updateOnly: true,
+        default: () => uuid(),
     })
-    id: number;
+    id: string;
 
     @property({
         type: 'string',

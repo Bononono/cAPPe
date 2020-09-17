@@ -88,3 +88,15 @@ B
 src/application.ts,c\d\cd439c4f74c238f133090530912270ee34eb0af0
 Y
 )src/controllers/file-upload.controller.ts,d\1\d1159416b8e830b3ce92e224b262511ecd1db439
+^
+.src/__tests__/acceptance/project.acceptance.ts,b\f\bf511375232285cb750208135c40109e25369e41
+S
+#src/datasources/mysql.datasource.ts,c\7\c744c4e33bb58c8ff04245fe22845a4f9ab4a46a
+R
+"src/controllers/user.controller.ts,5\e\5e3d65abd9498593ebea08bd263b480aaec545f3
+F
+src/observers/index.ts,3\d\3daf91f2105064daf305dc8a79351edf8783e73a
+H
+src/models/team.model.ts,b\f\bfe3e28562d157a8205bcc557d46ff3e84b0e3b8
+T
+$src/models/user-credentials.model.ts,3\d\3d2385d9d14340d7660c6fe81f0daec25034c3e4

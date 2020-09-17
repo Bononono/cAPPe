@@ -1,14 +1,15 @@
 import {Entity, model, property} from '@loopback/repository';
+import {v4 as uuid} from "uuid";
 
-@model({settings: {strict: false}})
+@model()
 export class Team extends Entity {
     @property({
-        type: 'number',
-        id: 1,
+        id: true,
+        type: 'string',
         generated: false,
-        updateOnly: true,
+        default: () => uuid(),
     })
-    id: number;
+    id: string;
 
     @property({
         type: 'number',

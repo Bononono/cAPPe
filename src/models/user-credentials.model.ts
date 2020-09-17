@@ -1,12 +1,15 @@
 import {Entity, model, property} from '@loopback/repository';
+import {v4 as uuid} from "uuid";
 
-@model({settings: {strict: false}})
+@model()
 export class UserCredentials extends Entity {
     @property({
-        type: 'number',
         id: true,
+        type: 'string',
+        generated: false,
+        default: () => uuid(),
     })
-    id: number;
+    id: string;
 
     @property({
         type: 'string',

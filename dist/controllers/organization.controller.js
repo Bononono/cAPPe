@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OrganizationController = void 0;
+exports.OrganizationController = exports.NewOrganizationRequest = void 0;
 const tslib_1 = require("tslib");
 const authentication_1 = require("@loopback/authentication");
 const authorization_1 = require("@loopback/authorization");
@@ -10,6 +10,19 @@ const lodash_1 = tslib_1.__importDefault(require("lodash"));
 const casbin_authorization_1 = require("../components/casbin-authorization");
 const models_1 = require("../models");
 const repositories_1 = require("../repositories");
+let NewOrganizationRequest = class NewOrganizationRequest extends models_1.Organization {
+};
+tslib_1.__decorate([
+    repository_1.property({
+        type: 'string',
+        required: true,
+    }),
+    tslib_1.__metadata("design:type", String)
+], NewOrganizationRequest.prototype, "discription", void 0);
+NewOrganizationRequest = tslib_1.__decorate([
+    repository_1.model()
+], NewOrganizationRequest);
+exports.NewOrganizationRequest = NewOrganizationRequest;
 // TBD: refactor the ACLs to a separate file
 const RESOURCE_NAME = 'organization';
 const ACL_PROJECT = {
@@ -42,6 +55,10 @@ let OrganizationController = class OrganizationController {
     constructor(organizationRepository) {
         this.organizationRepository = organizationRepository;
     }
+    async createOrganization(newOrganizationRequest) {
+        const savedOrganization = await this.organizationRepository.create(newOrganizationRequest);
+        return savedOrganization;
+    }
     // LIST PROJECTS (balance is not public)
     async listOrganizations() {
         const organizations = await this.organizationRepository.find();
@@ -55,26 +72,35 @@ let OrganizationController = class OrganizationController {
     async findById(id) {
         return this.organizationRepository.findById(id);
     }
-    // DONATE BY ID
-    async donateById(id, amount) {
-        const organization = await this.organizationRepository.findById(id);
-        await this.organizationRepository.updateById(id, {
-            balance: organization.balance + amount,
-        });
-        // TBD: return new balance
-    }
-    // WITHDRAW BY ID
-    async withdrawById(id, amount) {
-        const organization = await this.organizationRepository.findById(id);
-        if (organization.balance < amount) {
-            throw new Error('Balance is not enough.');
-        }
-        await this.organizationRepository.updateById(id, {
-            balance: organization.balance - amount,
-        });
-        // TBD: return new balance
-    }
 };
+tslib_1.__decorate([
+    rest_1.post('/createorganization', {
+        responses: {
+            '200': {
+                description: 'Organization',
+                content: {
+                    'application/json': {
+                        schema: {
+                            'x-ts-type': models_1.Organization,
+                        },
+                    },
+                },
+            },
+        },
+    }),
+    tslib_1.__param(0, rest_1.requestBody({
+        content: {
+            'application/json': {
+                schema: rest_1.getModelSchemaRef(NewOrganizationRequest, {
+                    title: 'NewOrganization',
+                }),
+            },
+        },
+    })),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [NewOrganizationRequest]),
+    tslib_1.__metadata("design:returntype", Promise)
+], OrganizationController.prototype, "createOrganization", null);
 tslib_1.__decorate([
     rest_1.get('/list-organizations', {
         responses: {
@@ -121,10 +147,10 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:returntype", Promise)
 ], OrganizationController.prototype, "viewAll", null);
 tslib_1.__decorate([
-    rest_1.get('/organizations/{id}/show-balance', {
+    rest_1.get('/organizations/{id}', {
         responses: {
             '200': {
-                description: 'show balance of a organization',
+                description: 'show a organization',
                 content: {
                     'application/json': {
                         schema: rest_1.getModelSchemaRef(models_1.Organization),
@@ -134,44 +160,11 @@ tslib_1.__decorate([
         },
     }),
     authentication_1.authenticate('jwt'),
-    authorization_1.authorize(ACL_PROJECT['show-balance']),
     tslib_1.__param(0, rest_1.param.path.number('id')),
     tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [Number]),
+    tslib_1.__metadata("design:paramtypes", [String]),
     tslib_1.__metadata("design:returntype", Promise)
 ], OrganizationController.prototype, "findById", null);
-tslib_1.__decorate([
-    rest_1.patch('/organizations/{id}/donate', {
-        responses: {
-            '204': {
-                description: 'Organization donate success',
-            },
-        },
-    }),
-    authentication_1.authenticate('jwt'),
-    authorization_1.authorize(ACL_PROJECT.donate),
-    tslib_1.__param(0, rest_1.param.path.number('id')),
-    tslib_1.__param(1, rest_1.param.query.number('amount')),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [Number, Number]),
-    tslib_1.__metadata("design:returntype", Promise)
-], OrganizationController.prototype, "donateById", null);
-tslib_1.__decorate([
-    rest_1.patch('/organizations/{id}/withdraw', {
-        responses: {
-            '204': {
-                description: 'Organization withdraw success',
-            },
-        },
-    }),
-    authentication_1.authenticate('jwt'),
-    authorization_1.authorize(ACL_PROJECT.withdraw),
-    tslib_1.__param(0, rest_1.param.path.number('id')),
-    tslib_1.__param(1, rest_1.param.query.number('amount')),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [Number, Number]),
-    tslib_1.__metadata("design:returntype", Promise)
-], OrganizationController.prototype, "withdrawById", null);
 OrganizationController = tslib_1.__decorate([
     tslib_1.__param(0, repository_1.repository(repositories_1.OrganizationRepository)),
     tslib_1.__metadata("design:paramtypes", [repositories_1.OrganizationRepository])

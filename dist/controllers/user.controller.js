@@ -78,7 +78,7 @@ let UserController = class UserController {
         const token = await this.jwtService.generateToken(userProfile);
         return { token };
     }
-    async signUp(newUserRequest) {
+    async createuser(newUserRequest) {
         const password = await bcryptjs_1.hash(newUserRequest.password, await bcryptjs_1.genSalt());
         const savedUser = await this.userRepository.create(lodash_1.default.omit(newUserRequest, 'password'));
         await this.userRepository.userCredentials(savedUser.id).create({ password });
@@ -95,6 +95,14 @@ let UserController = class UserController {
         await this.userRepository.userCredentials(user[0].id).delete();
         await this.userRepository.userCredentials(user[0].id).create({ password });
         return string;
+    }
+    // VIEW ALL PROJECTS (including balance)
+    async viewAll() {
+        return this.userRepository.find();
+    }
+    // SHOW BALANCE: get organization by id
+    async findById(id) {
+        return this.userRepository.findById(id);
     }
 };
 tslib_1.__decorate([
@@ -140,7 +148,7 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:returntype", Promise)
 ], UserController.prototype, "login", null);
 tslib_1.__decorate([
-    rest_1.post('/signup', {
+    rest_1.post('/createuser', {
         responses: {
             '200': {
                 description: 'User',
@@ -166,7 +174,7 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:type", Function),
     tslib_1.__metadata("design:paramtypes", [NewUserRequest]),
     tslib_1.__metadata("design:returntype", Promise)
-], UserController.prototype, "signUp", null);
+], UserController.prototype, "createuser", null);
 tslib_1.__decorate([
     rest_1.post('/resetPassword', {
         responses: {
@@ -192,6 +200,46 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [ResetPasswordRequest]),
     tslib_1.__metadata("design:returntype", Promise)
 ], UserController.prototype, "resetPassword", null);
+tslib_1.__decorate([
+    rest_1.get('/view-all-users', {
+        responses: {
+            '200': {
+                description: 'Array of all user model instances',
+                content: {
+                    'application/json': {
+                        schema: {
+                            type: 'array',
+                            items: rest_1.getModelSchemaRef(models_1.User),
+                        },
+                    },
+                },
+            },
+        },
+    }),
+    authentication_1.authenticate('jwt'),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", []),
+    tslib_1.__metadata("design:returntype", Promise)
+], UserController.prototype, "viewAll", null);
+tslib_1.__decorate([
+    rest_1.get('/users/{id}', {
+        responses: {
+            '200': {
+                description: 'show details of a user',
+                content: {
+                    'application/json': {
+                        schema: rest_1.getModelSchemaRef(models_1.User),
+                    },
+                },
+            },
+        },
+    }),
+    authentication_1.authenticate('jwt'),
+    tslib_1.__param(0, rest_1.param.path.number('id')),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [String]),
+    tslib_1.__metadata("design:returntype", Promise)
+], UserController.prototype, "findById", null);
 UserController = tslib_1.__decorate([
     tslib_1.__param(0, core_1.inject(jwt_authentication_1.TokenServiceBindings.TOKEN_SERVICE)),
     tslib_1.__param(1, core_1.inject(jwt_authentication_1.UserServiceBindings.USER_SERVICE)),

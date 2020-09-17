@@ -1,6 +1,6 @@
 import { Entity } from '@loopback/repository';
 export declare class UserCredentials extends Entity {
-    id: number;
+    id: string;
     password: string;
     userId: number;
     [prop: string]: any;
