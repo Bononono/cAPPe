@@ -6,10 +6,9 @@ export class UserCredentials extends Entity {
     @property({
         id: true,
         type: 'string',
-        generated: false,
         default: () => uuid(),
     })
-    id: string;
+    idUserCredentials: string;
 
     @property({
         type: 'string',

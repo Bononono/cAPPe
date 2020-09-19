@@ -100,3 +100,11 @@ H
 src/models/team.model.ts,b\f\bfe3e28562d157a8205bcc557d46ff3e84b0e3b8
 T
 $src/models/user-credentials.model.ts,3\d\3d2385d9d14340d7660c6fe81f0daec25034c3e4
+j
+:src/components/jwt-authentication/services/user.service.ts,c\c\cc2356aeb7fd8d61ea8e0b5032614a20de22c2d2
+R
+"src/controllers/team.controller.ts,d\d\dd39f1b2b651a8222b43fbc4d260aff58d68f32a
+S
+#src/repositories/user.repository.ts,6\1\6109f82fc8f9bdfe824c8d5ec2fa3c2bff248ec9
+S
+#src/repositories/team.repository.ts,7\5\757b85ccedf969b25fb8e89d4f7722071ea2322d

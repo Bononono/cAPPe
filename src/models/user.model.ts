@@ -9,10 +9,9 @@ export class User extends Entity {
     @property({
         id: true,
         type: 'string',
-        generated: false,
         default: () => uuid(),
     })
-    id: string;
+    idUser: string;
 
     @property({
         type: 'string',

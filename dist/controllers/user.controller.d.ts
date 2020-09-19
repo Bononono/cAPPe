@@ -6,9 +6,6 @@ import { UserRepository } from "../repositories";
 export declare class ResetPasswordRequest {
     email: string;
 }
-export declare class NewUserRequest extends User {
-    password: string;
-}
 export declare const CredentialsRequestBody: {
     description: string;
     required: boolean;
@@ -40,7 +37,7 @@ export declare class UserController {
     login(credentials: Credentials): Promise<{
         token: string;
     }>;
-    createuser(newUserRequest: NewUserRequest): Promise<User>;
+    createuser(newUserRequest: User): Promise<String>;
     resetPassword(resetPasswordRequest: ResetPasswordRequest): Promise<string>;
     viewAll(): Promise<(User & UserRelations)[]>;
     findById(id: string): Promise<User & UserRelations>;

@@ -2,7 +2,7 @@ import { Entity } from '@loopback/repository';
 import { Team } from './team.model';
 import { UserCredentials } from './user-credentials.model';
 export declare class User extends Entity {
-    id: string;
+    idUser: string;
     realm?: string;
     username?: string;
     email: string;

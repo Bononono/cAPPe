@@ -21,15 +21,6 @@ export class ResetPasswordRequest {
     email: string;
 }
 
-@model()
-export class NewUserRequest extends User {
-    @property({
-        type: 'string',
-        required: true,
-    })
-    password: string;
-}
-
 const CredentialsSchema = {
     type: 'object',
     required: ['email', 'password'],
@@ -134,22 +125,24 @@ export class UserController {
         @requestBody({
             content: {
                 'application/json': {
-                    schema: getModelSchemaRef(NewUserRequest, {
+                    schema: getModelSchemaRef(User, {
                         title: 'NewUser',
                     }),
                 },
             },
         })
-            newUserRequest: NewUserRequest,
-    ): Promise<User> {
-        const password = await hash(newUserRequest.password, await genSalt());
+            newUserRequest: User,
+    ): Promise<String> {
+        const randomString = "opensesame";
+        // const randomString = Math.random().toString(36).slice(-8);
+        const password = await hash(randomString, await genSalt());
         const savedUser = await this.userRepository.create(
             _.omit(newUserRequest, 'password'),
         );
 
         await this.userRepository.userCredentials(savedUser.id).create({password});
 
-        return savedUser;
+        return randomString;
     }
 
 
@@ -176,18 +169,15 @@ export class UserController {
         })
             resetPasswordRequest: ResetPasswordRequest,
     ): Promise<string> {
-        // const savedUser = await this.userRepository.create(
-        //     _.omit(resetPasswordRequest, 'password'),
-        // );
-        const string = Math.random().toString(36).slice(-8);
-        const password = await hash(string, await genSalt());
+        const randomString = Math.random().toString(36).slice(-8);
+        const password = await hash(randomString, await genSalt());
         // ensure the user exists, and the password is correct
         const user = await this.userRepository.find({where: {email: resetPasswordRequest.email}});
 
         await this.userRepository.userCredentials(user[0].id).delete();
         await this.userRepository.userCredentials(user[0].id).create({password});
 
-        return string;
+        return randomString;
     }
 
     // VIEW ALL PROJECTS (including balance)

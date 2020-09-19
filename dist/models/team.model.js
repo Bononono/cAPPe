@@ -13,11 +13,10 @@ tslib_1.__decorate([
     repository_1.property({
         id: true,
         type: 'string',
-        generated: false,
         default: () => uuid_1.v4(),
     }),
     tslib_1.__metadata("design:type", String)
-], Team.prototype, "id", void 0);
+], Team.prototype, "idTeam", void 0);
 tslib_1.__decorate([
     repository_1.property({
         type: 'number',

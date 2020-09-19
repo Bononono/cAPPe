@@ -7,10 +7,9 @@ export class Organization extends Entity {
     @property({
         id: true,
         type: 'string',
-        generated: false,
         default: () => uuid(),
     })
-    id: string;
+    idOrganization: string;
 
     @property({
         type: 'string',
@@ -23,7 +22,7 @@ export class Organization extends Entity {
     balance: number;
 
     @belongsTo(() => User)
-    ownerId: number;
+    ownerId: string;
 
     // Define well-known properties here
 
